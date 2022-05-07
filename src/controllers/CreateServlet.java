@@ -34,7 +34,6 @@ public class CreateServlet extends HttpServlet {
         String _token = request.getParameter("_token");
         if(_token != null && _token.equals(request.getSession().getId())) {
             EntityManager em = DBUtil.createEntityManager();
-            em.getTransaction().begin();
 
             Message m = new Message();
 
@@ -48,6 +47,7 @@ public class CreateServlet extends HttpServlet {
             m.setCreated_at(currentTime);
             m.setUpdated_at(currentTime);
 
+            em.getTransaction().begin();
             em.persist(m);
             em.getTransaction().commit();
             em.close();
